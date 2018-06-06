@@ -11,8 +11,9 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
+import { withRouter } from 'react-router-dom';
 import './login.css';
-
+import firebase from '../../firebase.js';
 
 const styles = theme => ({
     root: {
@@ -40,7 +41,10 @@ class Login extends React.Component {
             email: '',
             password: '',
             showPassword: false,
+            isSignedIn: false,
+            userProfile: null
         };
+
     }
 
 
@@ -61,8 +65,18 @@ class Login extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(`${this.state.email} has ${this.state.password}`);
-        this.setState({email: '', password: ''});
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(
+            result => {
+                console.log(result.user);
+                this.setState({email: '', password: ''});
+                this.props.history.push('/home');
+            }
+        )
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
     }
 
     render() {
@@ -112,4 +126,4 @@ class Login extends React.Component {
     }
 }
 
-export default withStyles(styles)(Login);
+export default withRouter(withStyles(styles)(Login));

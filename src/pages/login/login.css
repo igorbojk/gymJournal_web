@@ -1,18 +1,16 @@
-.login-container{
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: #fafafa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.login-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
-.login-container form{
-    max-width: 320px;
-}
-.login-btn{
-    margin-top: 16px !important;
-}
+.login-container form {
+  max-width: 320px; }
+
+.login-btn {
+  margin-top: 16px !important; }
