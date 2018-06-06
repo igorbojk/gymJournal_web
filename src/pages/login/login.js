@@ -77,40 +77,18 @@ class Login extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(firebase);
-        firebase.firestore().collection('users').then(
-            result => {
-                console.log(result);
-            }
-        );
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(
             result => {
-                // firebase.firestore().collection('users').then(
-                //     result => {
-                //         console.log(result);
-                //     }
-                // )
-
-                // firebase.database().ref('/users').once('value').then(
-                //     users => {
-                //         console.log(users.val());
-                //         console.log(Object.values(users.val()).find(i => i.id == result.user.uid));
-                //         // console.log(users.val()[result.user.uid]);
-                //     }
-                // );
-                // this.firebase.list('/users/', {
-                //         query: {
-                //             orderByChild: 'id',
-                //             equalTo: result.user.uid
-                //         }
-                //     }).then(
-                //         result => {
-                //             console.log(result);
-                //         }
-                // )
-                // store.dispatch('SET_CURRENT_USER', result.user);
-                // this.setState({email: '', password: ''});
-                // this.props.history.push('/home');
+                firebase.database().ref('/users').once('value').then(
+                    users => {
+                        const currentUser = (Object.values(users.val()).find(i => i.id == result.user.uid));
+                        this.props.onSetCurrentUser(currentUser);
+                        this.setState({email: '', password: ''});
+                        this.props.history.push('/home');
+                    }
+                );
+           
+               
             }
         )
             .catch(
@@ -171,5 +149,9 @@ export default connect(
     state => ({
         store: state
     }),
-    dispatch => ({})
+    dispatch => ({
+        onSetCurrentUser: (user) => {
+            dispatch({type: 'SET_CURRENT_USER', user})
+        }
+    })
 )(withRouter(withStyles(styles)(Login)));

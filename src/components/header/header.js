@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import {connect} from "react-redux";
 
 import './header.css';
 const styles = {
@@ -20,7 +21,7 @@ const styles = {
     menuButton: {
         marginLeft: -12,
         marginRight: 20,
-    },
+    }
 };
 
 class Header extends React.Component {
@@ -46,6 +47,15 @@ class Header extends React.Component {
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
 
+        const currentUser = this.props.store.currentUser;
+
+        const test = {
+            backgroundImage: currentUser && currentUser.photoUrl ? `url(${currentUser.photoUrl})` : null,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+        }
+
         return (
             <div className={classes.root}>
                 <AppBar position="static">
@@ -57,7 +67,7 @@ class Header extends React.Component {
                             Jym Journal
                         </Typography>
                         <div>
-                            <div className={'avatar'} onClick={this.handleMenu}>
+                            <div className={'avatar'} onClick={this.handleMenu} style={test}>
                             </div>
                             <Menu
                                 id="menu-appbar"
@@ -88,4 +98,12 @@ Header.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+
+export default connect(
+    state => ({
+        store: state
+    }),
+    dispatch => ({
+       
+    })
+)(withStyles(styles)(Header));
