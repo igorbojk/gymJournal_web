@@ -51,15 +51,6 @@ class Login extends React.Component {
         };
     }
 
-    // componentDidMount(){
-    //     const rootRef = firebase.database().ref().child('users');
-    //     rootRef.on('value', snap => {
-    //         console.log(snap.val());
-    //     });
-    // }
-
-
-
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
@@ -91,11 +82,6 @@ class Login extends React.Component {
                
             }
         )
-            .catch(
-                err => {
-                    console.log(err);
-                }
-            );
     }
 
     render() {
