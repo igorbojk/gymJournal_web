@@ -1,36 +1,34 @@
-import React from 'react';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import React from "react";
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    withRouter
+} from "react-router-dom";
+
 import {connect} from 'react-redux';
 
 import Login from '../../pages/login/login';
 import Home from '../../pages/home/home';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+
+
+
+
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {numbers: [1, 2, 3, 4, 5, 6]};
-        this.test = this.test.bind(this);
-    }
-
-
-    test() {
-        this.setState({numbers: [...this.state.numbers, (this.state.numbers.length + 1)]});
-    }
-
-    requireAuth() {
-        return (nextState, replace) => {
-            if (!this.props.store.currentUser) {
-                console.log('test');
-                replace('/login');
-            }
-        };
     }
 
     render() {
         return (
-            <Switch>
-                <Route path='/login' component={Login}/>
-                <Route path='/home' component={Home} onEnter={this.requireAuth()}/>
-            </Switch>
+            <Router>
+                <div>
+                    <Route path="/login" component={Login} />
+                    <PrivateRoute path="/home" component={Home} />
+                </div>
+            </Router>
         );
     }
 
@@ -40,6 +38,6 @@ export default connect(
     state => ({
         store: state
     }),
-    dispatch => ({
-    })
-)(withRouter(App));
+    dispatch => ({})
+)(App);
+

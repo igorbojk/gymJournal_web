@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Switch} from 'react-router-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
@@ -23,8 +23,6 @@ store.dispatch({type: 'TEST', payload: 'sss'});
 
 render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
+        <App/>
     </Provider>
     , document.getElementById('root'));

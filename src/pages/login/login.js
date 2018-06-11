@@ -72,17 +72,19 @@ class Login extends React.Component {
             result => {
                 firebase.database().ref('/users').once('value').then(
                     users => {
-                        const currentUser = (Object.values(users.val()).find(i => i.id == result.user.uid));
+                        const currentUser = (Object.values(users.val()).find(i => i.id === result.user.uid));
                         this.props.onSetCurrentUser(currentUser);
                         this.setState({email: '', password: ''});
                         this.props.history.push('/home');
                     }
                 );
-           
-               
+
+
             }
         )
     }
+
+
 
     render() {
         const {classes} = this.props;
@@ -131,7 +133,7 @@ class Login extends React.Component {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     state => ({
         store: state
     }),
@@ -140,4 +142,4 @@ export default connect(
             dispatch({type: 'SET_CURRENT_USER', user})
         }
     })
-)(withRouter(withStyles(styles)(Login)));
+)(withStyles(styles)(Login)));
