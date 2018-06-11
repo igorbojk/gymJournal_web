@@ -1,6 +1,5 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {BrowserRouter, Switch} from 'react-router-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
@@ -10,6 +9,10 @@ import GymJournal from './store.js';
 
 const store = createStore(GymJournal);
 
+if(localStorage.getItem('gymJournal_currentUser')) {
+    const currentUser = JSON.parse(localStorage.getItem('gymJournal_currentUser'));
+    store.dispatch({type: 'SET_CURRENT_USER', payload: currentUser});
+}
 
 store.subscribe(
     () => {
@@ -17,8 +20,6 @@ store.subscribe(
     }
 );
 
-store.dispatch({type: 'TEST', payload: 'everest'});
-store.dispatch({type: 'TEST', payload: 'sss'});
 
 
 render(

@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import {connect} from "react-redux";
 
 import './header.css';
+
 const styles = {
     root: {
         flexGrow: 1,
@@ -46,26 +47,22 @@ class Header extends React.Component {
         const open = Boolean(anchorEl);
 
         const currentUser = this.props.store.currentUser;
-
-        const test = {
-            backgroundImage: currentUser && currentUser.photoUrl ? `url(${currentUser.photoUrl})` : null,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
-        }
+        const avatarStyles = {
+            backgroundImage: currentUser && currentUser.photoUrl ? `url(${currentUser.photoUrl})` : null
+        };
 
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        {/*<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">*/}
-                            {/*<MenuIcon/>*/}
-                        {/*</IconButton>*/}
                         <Typography variant="title" color="inherit" className={classes.flex}>
                             Jym Journal
                         </Typography>
                         <div>
-                            <div className={'avatar'} onClick={this.handleMenu} style={test}>
+                            <div className="user">
+                                <span>{currentUser.firstName} {currentUser.secondName}</span>
+                                <div className={'avatar'} onClick={this.handleMenu} style={avatarStyles}>
+                            </div>
                             </div>
                             <Menu
                                 id="menu-appbar"
@@ -101,7 +98,5 @@ export default connect(
     state => ({
         store: state
     }),
-    dispatch => ({
-       
-    })
+    dispatch => ({})
 )(withStyles(styles)(Header));

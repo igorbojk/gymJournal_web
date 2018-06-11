@@ -51,6 +51,12 @@ class Login extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if(this.props.store.currentUser) {
+            this.props.history.push('/');
+        }
+    }
+
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
@@ -75,11 +81,9 @@ class Login extends React.Component {
                         const currentUser = (Object.values(users.val()).find(i => i.id === result.user.uid));
                         this.props.onSetCurrentUser(currentUser);
                         this.setState({email: '', password: ''});
-                        this.props.history.push('/home');
+                        this.props.history.push('/');
                     }
                 );
-
-
             }
         )
     }
@@ -138,8 +142,8 @@ export default withRouter(connect(
         store: state
     }),
     dispatch => ({
-        onSetCurrentUser: (user) => {
-            dispatch({type: 'SET_CURRENT_USER', user})
+        onSetCurrentUser: (payload) => {
+            dispatch({type: 'SET_CURRENT_USER', payload})
         }
     })
 )(withStyles(styles)(Login)));

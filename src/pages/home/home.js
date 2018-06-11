@@ -3,21 +3,32 @@ import './home.css';
 
 import Header from '../../components/header/header';
 
-class Home extends React.Component{
+import Calendar from '../../components/Calendar/Calendar';
+import Training from '../../components/Training/Training';
 
-    constructor(props){
+import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
+
+class Home extends React.Component {
+
+    constructor(props) {
         super(props);
 
     }
-    componentDidMount(){
-        console.log('mount');
+
+
+    componentDidMount() {
+        if(this.props.location.pathname === '/'){
+            this.props.history.push('/calendar');
+        }
     }
 
-    render(){
+
+    render() {
         return (
             <div>
                 <Header/>
-                <h3>home page</h3>
+                <PrivateRoute path="/training/:id" component={Training}/>
+                <PrivateRoute exact path="/calendar" component={Calendar}/>
             </div>
         )
     }

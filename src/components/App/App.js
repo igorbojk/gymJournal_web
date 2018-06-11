@@ -2,8 +2,7 @@ import React from "react";
 import {
     BrowserRouter as Router,
     Route,
-    Link,
-    withRouter
+    Switch
 } from "react-router-dom";
 
 import {connect} from 'react-redux';
@@ -11,7 +10,6 @@ import {connect} from 'react-redux';
 import Login from '../../pages/login/login';
 import Home from '../../pages/home/home';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-
 
 
 
@@ -24,10 +22,10 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <div>
-                    <Route path="/login" component={Login} />
-                    <PrivateRoute path="/home" component={Home} />
-                </div>
+                <Switch>
+                    <Route path="/login" component={Login}/>
+                    <PrivateRoute path="/" component={Home}/>
+                </Switch>
             </Router>
         );
     }
