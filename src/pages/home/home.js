@@ -25,7 +25,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={'mainView'}>
                 <Header/>
                 <PrivateRoute path="/training/:id" component={Training}/>
                 <PrivateRoute exact path="/calendar" component={Calendar}/>
