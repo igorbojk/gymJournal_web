@@ -57,11 +57,16 @@ class Header extends React.Component {
         this.setState({anchorEl: null});
     }
 
+    shouldComponentUpdate(props, state){
+        console.log(props);
+        console.log(state);
+        return state
+    }
+
     render() {
         const {classes} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
-
         const currentUser = this.props.store.currentUser;
         const avatarStyles = {
             backgroundImage: currentUser && currentUser.photoUrl ? `url(${currentUser.photoUrl})` : null
