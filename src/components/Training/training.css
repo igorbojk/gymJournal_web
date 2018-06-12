@@ -2,7 +2,20 @@
   max-width: 1280px;
   width: 100% !important;
   margin: auto !important;
-  padding: 48px 0; }
+  padding: 16px 8px;
+  box-sizing: border-box; }
 
 .tableTitle {
-  padding: 16px 0; }
+  padding: 16px;
+  font-weight: 900 !important; }
+
+.back-btn {
+  margin-right: 16px !important; }
+
+.header-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px; }
+
+.info-text {
+  margin-bottom: 4px !important; }

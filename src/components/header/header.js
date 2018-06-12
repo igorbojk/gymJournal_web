@@ -7,8 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {connect} from "react-redux";
-
+import firebase from '../../firebase.js';
 import './header.css';
+import {withRouter} from "react-router-dom";
 
 const styles = {
     root: {
@@ -31,6 +32,9 @@ class Header extends React.Component {
         this.state = {
             anchorEl: null,
         };
+
+        this.goToProfile = this.goToProfile.bind(this);
+        this.logOut = this.logOut.bind(this);
     }
 
     handleMenu = event => {
@@ -40,6 +44,18 @@ class Header extends React.Component {
     handleClose = () => {
         this.setState({anchorEl: null});
     };
+
+    goToProfile(){
+        this.props.history.push('/user-profile');
+        this.setState({anchorEl: null});
+    }
+
+    logOut(){
+        firebase.auth().signOut();
+        this.props.onRemoveCurrentUser();
+        this.props.history.push('/login');
+        this.setState({anchorEl: null});
+    }
 
     render() {
         const {classes} = this.props;
@@ -78,8 +94,8 @@ class Header extends React.Component {
                                 open={open}
                                 onClose={this.handleClose}
                             >
-                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                <MenuItem onClick={this.goToProfile}>Профиль</MenuItem>
+                                <MenuItem onClick={this.logOut}>Выйти</MenuItem>
                             </Menu>
                         </div>
                     </Toolbar>
@@ -94,9 +110,13 @@ Header.propTypes = {
 };
 
 
-export default connect(
+export default withRouter(connect(
     state => ({
         store: state
     }),
-    dispatch => ({})
-)(withStyles(styles)(Header));
+    dispatch => ({
+        onRemoveCurrentUser: (payload) => {
+            dispatch({type: 'REMOVE_CURRENT_USER', payload})
+        }
+    })
+)(withStyles(styles)(Header)));

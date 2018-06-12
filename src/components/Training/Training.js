@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import firebase from "../../firebase";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,32 +11,21 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-
-const styles = theme => ({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
-    },
-    table: {
-        minWidth: 700,
-    },
-});
-
-
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import Moment from 'react-moment';
+import 'moment/locale/ru';
 class Training extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             training: null
-        }
-
+        };
+        this.goBack = this.goBack.bind(this);
     }
 
     componentDidMount() {
-        console.log(this.props.match.params.id);
         firebase.database().ref(`/calendar/${this.props.match.params.id}`).once('value').then(
             training => {
                 this.setState({
@@ -46,21 +33,41 @@ class Training extends React.Component {
                 });
             }
         );
+
     }
 
+    goBack(){
+        this.props.history.goBack();
+    }
 
     render() {
-
         return (
             this.state.training ?
                 <div className={'center'}>
+                    <div className="header-info">
+                        <IconButton aria-label="Delete" className="back-btn" onClick={this.goBack}>
+                            <ArrowBack />
+                        </IconButton>
+                        <Typography variant="headline">
+                            {this.state.training.title}
+                        </Typography>
+                    </div>
+                    <Typography variant="subheading" className="info-text">
+                        Начало в:  <Moment format="DD MMMM YYYY, HH:mm">{this.state.training.startAt}</Moment>
+                    </Typography>
+                    <Typography variant="subheading" className="info-text">
+                        Окончание в:  <Moment format="DD MMMM YYYY, HH:mm">{this.state.training.stopAt}</Moment>
+                    </Typography>
+                    <Typography variant="subheading" className="info-text">
+                        Собственный вес: {this.state.training.weight} кг
+                    </Typography>
+
                     {this.state.training.exercises.map(n => {
                         return (
-                            <div key={n.id}>
+                            <Paper key={n.id}>
                                 <Typography color="textSecondary" className={'tableTitle'}>
                                     {n.title}
                                 </Typography>
-                                <Paper>
                                     <Table>
                                         <TableHead>
                                             <TableRow>
@@ -78,28 +85,20 @@ class Training extends React.Component {
                                                         </TableCell>
                                                         <TableCell numeric>{elem.repetition}</TableCell>
                                                         <TableCell numeric>{elem.weight}</TableCell>
-
                                                     </TableRow>
                                                 );
                                             })}
                                         </TableBody>
                                     </Table>
-                                </Paper>
-                            </div>
-
+                            </Paper>
                         )
                     })}
-                </div>
-
-
-                :
+                </div> :
                 <div className="loader">
                     <CircularProgress/>
                 </div>
         )
-
     }
-
 }
 
 
