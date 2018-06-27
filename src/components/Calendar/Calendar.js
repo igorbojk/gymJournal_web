@@ -39,9 +39,7 @@ class Calendar extends React.Component {
     componentDidMount() {
         firebase.database().ref('/calendar').once('value').then(
             calendar => {
-
                 const keys = Object.keys(calendar.val());
-
                 const updatedCalendar = Object.values(calendar.val()).map((el, index) => {
                     el.$key = keys[index];
                     return el;
