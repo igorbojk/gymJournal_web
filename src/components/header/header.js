@@ -10,6 +10,8 @@ import {connect} from "react-redux";
 import firebase from '../../firebase.js';
 import './header.css';
 import {withRouter} from "react-router-dom";
+import Avatar from '../../components/Avatar/Avatar'
+
 
 const styles = {
     root: {
@@ -58,8 +60,6 @@ class Header extends React.Component {
     }
 
     shouldComponentUpdate(props, state){
-        console.log(props);
-        console.log(state);
         return state
     }
 
@@ -68,10 +68,6 @@ class Header extends React.Component {
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
         const currentUser = this.props.store.currentUser;
-        const avatarStyles = {
-            backgroundImage: currentUser && currentUser.photoUrl ? `url(${currentUser.photoUrl})` : null
-        };
-
         return (
             <div className={classes.root}>
                 <AppBar position="fixed">
@@ -82,8 +78,7 @@ class Header extends React.Component {
                         <div>
                             <div className="user">
                                 <span>{currentUser.firstName} {currentUser.secondName}</span>
-                                <div className={'avatar'} onClick={this.handleMenu} style={avatarStyles}>
-                            </div>
+                                <Avatar user={currentUser} handleClick={this.handleMenu}></Avatar>
                             </div>
                             <Menu
                                 id="menu-appbar"

@@ -1,6 +1,5 @@
 const initialState = {
     currentUser: null,
-    test1: 'test'
 };
 
 

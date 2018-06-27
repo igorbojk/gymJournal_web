@@ -45,7 +45,7 @@ class Calendar extends React.Component {
                 const updatedCalendar = Object.values(calendar.val()).map((el, index) => {
                     el.$key = keys[index];
                     return el;
-                }).filter(i => i.userId == this.props.store.currentUser.id);
+                }).filter(i => i.userId === this.props.store.currentUser.id);
                 this.setState({calendar: updatedCalendar});
             }
         );

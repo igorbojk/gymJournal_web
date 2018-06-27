@@ -11,12 +11,6 @@ import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 
 class Home extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-    }
-
-
     componentDidMount() {
         if(this.props.location.pathname === '/'){
             this.props.history.push('/calendar');

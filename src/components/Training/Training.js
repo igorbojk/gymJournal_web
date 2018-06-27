@@ -15,6 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Moment from 'react-moment';
 import 'moment/locale/ru';
+
+import consoleData from '../../hoc/consoleData'
 class Training extends React.Component {
 
     constructor(props) {
@@ -107,4 +109,4 @@ export default connect(
         store: state
     }),
     dispatch => ({})
-)(Training);
+)(consoleData(Training));
