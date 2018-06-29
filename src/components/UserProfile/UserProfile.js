@@ -35,8 +35,8 @@ class UserProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: this.props.store.currentUser.firstName,
-            secondName: this.props.store.currentUser.secondName
+            firstName: this.props.store.user.currentUser.firstName,
+            secondName: this.props.store.user.currentUser.secondName
         };
         this.goBack = this.goBack.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,7 +58,7 @@ class UserProfile extends React.Component {
             firstName: this.state.firstName,
             secondName: this.state.secondName
         };
-        firebase.database().ref(`/users/${this.props.store.currentUser.$key}`).update(updatedUser).then(
+        firebase.database().ref(`/users/${this.props.store.user.currentUser.$key}`).update(updatedUser).then(
             result => {
                 this.props.onUpdateCurrentUser(updatedUser);
             },
@@ -70,7 +70,7 @@ class UserProfile extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const currentUser = this.props.store.currentUser;
+        const currentUser = this.props.store.user.currentUser;
         const avatarStyles = {
             backgroundImage: currentUser && currentUser.photoUrl ? `url(${currentUser.photoUrl})` : null
         };

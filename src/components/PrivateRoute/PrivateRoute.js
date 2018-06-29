@@ -8,7 +8,7 @@ function PrivateRoute ({component: Component, ...rest}) {
         <Route
             {...rest}
             render={props =>
-                rest.store.currentUser ? (
+                rest.store.user.currentUser ? (
                     <Component {...props} />
                 ) : (
                     <Redirect

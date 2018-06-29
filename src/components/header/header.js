@@ -67,7 +67,7 @@ class Header extends React.Component {
         const {classes} = this.props;
         const {anchorEl} = this.state;
         const open = Boolean(anchorEl);
-        const currentUser = this.props.store.currentUser;
+        const currentUser = this.props.store.user.currentUser;
         return (
             <div className={classes.root}>
                 <AppBar position="fixed">

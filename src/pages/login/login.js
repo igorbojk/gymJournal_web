@@ -52,7 +52,7 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.store.currentUser) {
+        if(this.props.store.user.currentUser) {
             this.props.history.push('/');
         }
     }
@@ -84,7 +84,6 @@ class Login extends React.Component {
                             el.$key = keys[index];
                             return el;
                         }).find(i => i.id === result.user.uid);
-
                         this.props.onSetCurrentUser(currentUser);
                         this.setState({email: '', password: ''});
                         this.props.history.push('/');

@@ -12,11 +12,9 @@ function consoleData (Component) {
             console.log('prevProps', this.props);
             console.log('nextProps', nexProps);
         }
-
         render() {
             return <Component {...this.props} />;
         }
-
     }
 
     ConsoleData.displayName = `ConsoleData(${Component.displayName || Component.name || 'Component'})`;
